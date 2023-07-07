@@ -5,6 +5,7 @@ export const headTitles: HeadTitle[] = [
   { label: "Year", key: "year" },
   { label: "Make", key: "make" },
   { label: "Model", key: "model" },
+  { label: "Location", key: "location" },
 ];
 
 export type HeadTitle = {

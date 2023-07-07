@@ -19,6 +19,7 @@ export type VehicleContextType = {
   updateVehicle: () => void;
   setPaginationOptions: (paginationOptions: PaginationOptions) => void;
   setVehiclePut: (vehiclePut: VehicleEdit) => void;
+  deleteVehicle: (id: number) => void;
 };
 
 interface Props {
@@ -48,6 +49,7 @@ export const VehicleContext = createContext<VehicleContextType>({
   updateVehicle: () => {},
   setPaginationOptions: () => {},
   setVehiclePut: () => {},
+  deleteVehicle: () => {},
 });
 
 const VehicleProvider: React.FC<Props> = ({ children }) => {
@@ -127,6 +129,30 @@ const VehicleProvider: React.FC<Props> = ({ children }) => {
       });
   };
 
+  const deleteVehicle = (id: number) => {
+    setLoading(true);
+    axiosClient
+      .delete(`/vehicles/${id}`)
+      .then((res) => {
+        setLoading(false);
+        getVehicles();
+        setNotification(
+          "Success",
+          "The vehicle was deleted succesfuly",
+          "success"
+        );
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(true);
+        setNotification(
+          "Error",
+          "The vehicle was not deleted succesfuly",
+          "error"
+        );
+      });
+  };
+
   const totalPages = Math.ceil(total / paginationOptions.limit) - 1;
 
   return (
@@ -146,6 +172,7 @@ const VehicleProvider: React.FC<Props> = ({ children }) => {
         getVehicles,
         updateVehicle,
         setVehiclePut,
+        deleteVehicle,
       }}
     >
       {children}
