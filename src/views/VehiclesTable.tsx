@@ -35,8 +35,8 @@ export default function VehiclesTable() {
     <div className="min-h-screen text-gray-700 subpixel-antialiased p-8 bg-test-darker-blue">
       <div className="container space-y-8 text-sm mx-auto">
         <main className=" shadow-lg hover:shadow-xl rounded-md overflow-hidden py-1  bg-test-dark-blue">
-          {!true && !error && <VehicleTableComponent />}
-          {true && <TableSkeleton />}
+          {!loading && !error && <VehicleTableComponent />}
+          {loading && <TableSkeleton />}
           {error && <TableError />}
           <ButtonPagination />
         </main>
