@@ -1,5 +1,8 @@
 import { useContext } from "react";
-import { NotificationContext } from "../context/notification-context";
+import {
+  ESeverity,
+  NotificationContext,
+} from "../context/notification-context";
 
 export default function Alert() {
   const { open, messageTitle, subMessage, severity, closeNotification } =
@@ -7,7 +10,7 @@ export default function Alert() {
   return open ? (
     <section
       className={`${
-        severity === "success"
+        severity === ESeverity.success
           ? "bg-green-200 border-green-600 text-green-600"
           : "bg-red-200 border-red-600 text-red-600"
       } border-l-4 p-4 fixed bottom-0 right-0 m-4 w-2/5 flex justify-between`}

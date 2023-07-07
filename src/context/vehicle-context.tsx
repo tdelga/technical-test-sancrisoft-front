@@ -3,7 +3,7 @@ import { axiosClient } from "../config/axios";
 import { NotificationContext } from "./notification-context";
 import { Vehicle, VehicleEdit } from "../models/Vehicle";
 import { PaginationOptions } from "../models/PaginationOptions";
-
+import { ESeverity } from "./notification-context";
 export type VehicleContextType = {
   open: boolean;
   error: boolean;
@@ -100,7 +100,11 @@ const VehicleProvider: React.FC<Props> = ({ children }) => {
       .catch((err) => {
         setLoading(false);
         setError(true);
-        setNotification("Error", "The vehicles could not be loaded", "error");
+        setNotification(
+          "Error",
+          "The vehicles could not be loaded",
+          ESeverity.error
+        );
       });
   };
 
@@ -115,7 +119,7 @@ const VehicleProvider: React.FC<Props> = ({ children }) => {
         setNotification(
           "Success",
           "The vehicle was updated succesfuly",
-          "success"
+          ESeverity.success
         );
       })
       .catch((err) => {
@@ -124,7 +128,7 @@ const VehicleProvider: React.FC<Props> = ({ children }) => {
         setNotification(
           "Error",
           "The vehicle was not updated succesfuly",
-          "error"
+          ESeverity.error
         );
       });
   };
@@ -139,7 +143,7 @@ const VehicleProvider: React.FC<Props> = ({ children }) => {
         setNotification(
           "Success",
           "The vehicle was deleted succesfuly",
-          "success"
+          ESeverity.success
         );
       })
       .catch((err) => {
@@ -148,7 +152,7 @@ const VehicleProvider: React.FC<Props> = ({ children }) => {
         setNotification(
           "Error",
           "The vehicle was not deleted succesfuly",
-          "error"
+          ESeverity.error
         );
       });
   };

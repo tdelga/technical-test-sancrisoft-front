@@ -1,16 +1,21 @@
 import { createContext, useState } from "react";
 
-type TSeverity = "success" | "info" | "warning" | "error";
+export enum ESeverity {
+  success = "success",
+  error = "error",
+  warning = "warning",
+  info = "info",
+}
 
 export type NotificationContextType = {
   open: boolean;
   messageTitle: string;
   subMessage?: string;
-  severity: TSeverity;
+  severity: ESeverity;
   setNotification: (
     messageTitle: string,
     subMessage?: string,
-    severity?: TSeverity
+    severity?: ESeverity
   ) => void;
   closeNotification: () => void;
 };
@@ -23,7 +28,7 @@ export const NotificationContext = createContext<NotificationContextType>({
   open: false,
   messageTitle: "",
   subMessage: "",
-  severity: "success",
+  severity: ESeverity.success,
   setNotification: () => {},
   closeNotification: () => {},
 });
@@ -32,12 +37,12 @@ const NotificationProvider: React.FC<Props> = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [messageTitle, setMessageTitle] = useState("");
   const [subMessage, setSubMessage] = useState("");
-  const [severity, setSeverity] = useState<TSeverity>("success");
+  const [severity, setSeverity] = useState<ESeverity>(ESeverity.success);
 
   const setNotification = (
     messageTitle: string,
     subMessage?: string,
-    severity: TSeverity = "success"
+    severity: ESeverity = ESeverity.success
   ) => {
     setMessageTitle(messageTitle);
     setSubMessage(subMessage || "");
